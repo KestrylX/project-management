@@ -1,0 +1,7 @@
+ProjectID,ProjectName,TaskName,DueDate,,SubTaskLevel,ParentTaskID,PIC,Completion,Notes,StartDate,Dependencies
+1,Overhaul 2025,Assign Tasks,2025-03-20,,0,,,50,"Initial task assignment meeting",2025-03-18,
+1,Overhaul 2025,Rent equipment,2025-03-21,,1,0,Alice,50,"Contact supplier for rates",2025-03-19,parent
+1,Overhaul 2025,Schedule Maintenance,2025-03-25,,0,,Bob,100,"All equipment ready",2025-03-23,
+2,Website Redesign,Design Homepage,2025-03-22,,0,,Charlie,25,"Draft wireframe",2025-03-20,
+2,Website Redesign,Test Navigation,2025-03-23,,1,0,,25,"Check mobile responsiveness",2025-03-21,parent
+3,Product Launch,Plan Marketing,2025-03-30,,0,,Alice,0,"Draft campaign outline",2025-03-28,

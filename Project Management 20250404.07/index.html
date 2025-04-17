@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--************************************************************************-->
+<!--            BLOCK 1. HTML Head and Metadata                           -->
+<!--************************************************************************-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="./">
+    <title>SSA Maintenance Projects</title>
+    <link rel="stylesheet" href="styles.css?v=1">
+</head>
+<!--************************************************************************-->
+<!--            END OF BLOCK 1. HTML Head and Metadata                    -->
+<!--************************************************************************-->
+
+<body>
+<!--************************************************************************-->
+<!--            BLOCK 2. Header                                           -->
+<!--************************************************************************-->
+    <header data-id="header">
+        <h1 class="app-title">SSA Maintenance Projects</h1>
+    </header>
+<!--************************************************************************-->
+<!--            END OF BLOCK 2. Header                                    -->
+<!--************************************************************************-->
+
+<!--************************************************************************-->
+<!--            BLOCK 3. Main Container and Tabs                          -->
+<!--************************************************************************-->
+    <div class="container" data-id="main-container">
+        <!-- Sidebar with hover-based tabs, no toggle button -->
+        <div class="sidebar">
+            <div data-id="tabs" class="tabs" role="tablist"></div>
+        </div>
+        <div data-id="project-tabs" class="project-tabs" role="tablist"></div>
+        <div data-id="import" class="tab-content">
+            <div class="action-bar" style="display: flex; justify-content: space-between;">
+                <button class="button" onclick="document.querySelector(`[data-id=\'${DOM_IDS.IMPORT_FILE}\']`).click()">Load CSV</button>
+                <div>
+                    <button class="button" onclick="importSelectedProjects()">Import Selected</button>
+                    <button class="button" onclick="importAllProjects()">Import All</button>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Import</th>
+                        <th>Project Name</th>
+                        <th>Completion</th>
+                        <th>Person-in-Charge</th>
+                    </tr>
+                </thead>
+                <tbody data-id="import-project-list"></tbody>
+            </table>
+        </div>
+
+
+<!--************************************************************************-->
+<!--            END OF BLOCK 3. Main Container and Tabs - index.html        -->
+<!--************************************************************************-->
+
+
+<!--************************************************************************-->
+<!--            BLOCK 4. Dashboard Tab                                    -->
+<!--************************************************************************-->
+        <div data-id="dashboard" class="tab-content active">
+            <div class="filter-bar">
+                <label for="filter-pic">Filter by PIC:</label>
+                <select id="filter-pic" data-id="filter-pic" onchange="filterProjects()">
+                    <option value="">All</option>
+                </select>
+                <label for="filter-overdue">Filter by Overdue:</label>
+                <select id="filter-overdue" data-id="filter-overdue" onchange="filterProjects()">
+                    <option value="">All</option>
+                    <option value="overdue">Overdue</option>
+                    <option value="not-overdue">Not Overdue</option>
+                </select>
+                <label for="filter-completion">Filter by Completion:</label>
+                <select id="filter-completion" data-id="filter-completion" onchange="filterProjects()">
+                    <option value="">All</option>
+                    <option value="completed">Completed</option>
+                    <option value="incomplete">Incomplete</option>
+                </select>
+                <label for="filter-archived">Show Archived:</label>
+                <input type="checkbox" id="filter-archived" data-id="filter-archived" onchange="filterProjects()">
+            </div>
+            <div class="action-bar">
+                <button class="button" onclick="addProject()">Add Project</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Project</th>
+                        <th>Start Date</th>
+                        <th>Deadline</th>
+                        <th>Completion</th>
+                        <th>Person-in-Charge</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody data-id="project-list"></tbody>
+            </table>
+        </div>
+<!--************************************************************************-->
+<!--            END OF BLOCK 4. Dashboard Tab                             -->
+<!--            Block 4 - Dashboard Tab - index.html                      -->
+<!--************************************************************************-->
+
+
+<!--************************************************************************-->
+<!--            BLOCK 5. Calendar Tab                                     -->
+<!--************************************************************************-->
+        <div data-id="calendar" class="tab-content">
+            <div class="calendar-nav">
+                <button class="button" onclick="prevMonth()">Previous</button>
+                <span data-id="month-year"></span>
+                <button class="button" onclick="nextMonth()">Next</button>
+            </div>
+            <div class="toggle-view-container">
+                <button data-id="toggle-view-btn" class="button active" onclick="toggleCalendarView()">Full View</button>
+                <button data-id="toggle-task-list" class="button" onclick="toggleTaskList()">Task List</button>
+            </div>
+            <div data-id="calendar-full" class="calendar-view">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sun</th>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                            <th>Sat</th>
+                        </tr>
+                    </thead>
+                    <tbody data-id="calendar-body"></tbody>
+                </table>
+            </div>
+            <div data-id="calendar-list" class="list-view hidden"></div>
+        </div>
+<!--************************************************************************-->
+<!--            END OF BLOCK 5. Calendar Tab                              -->
+<!--************************************************************************-->
+
+
+
+<!--************************************************************************-->
+<!--            BLOCK 6. Settings Tab                                     -->
+<!--************************************************************************-->
+        <div data-id="settings" class="tab-content settings-tab">
+            <div class="action-bar">
+                <button class="button" onclick="addPIC()">Add PIC</button>
+                <div class="action-bar-group">
+                    <input type="file" data-id="import-file" accept=".csv" onchange="importData(event)" class="hidden">
+                    <button class="button" onclick="document.querySelector(`[data-id='${DOM_IDS.IMPORT_FILE}']`).click()">Import CSV</button>
+                    <button class="button" onclick="exportData()">Export CSV</button>
+                </div>
+            </div>
+            <!-- PIC List Section -->
+            <div class="settings-section">
+                <h3>PIC List</h3>
+                <table class="settings-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody data-id="pic-list"></tbody>
+                </table>
+            </div>
+            <!-- Style Settings Sub-Menu -->
+            <div class="settings-section">
+                <h3 class="submenu-toggle" onclick="toggleSubmenu('style-settings')">Style Settings</h3>
+                <div id="style-settings" class="style-settings submenu-content hidden">
+                    <div class="theme-toggle">
+                        <label>Theme: 
+                            <select id="theme-select" onchange="switchTheme(this.value)">
+                                <option value="Dark">Dark</option>
+                                <option value="Light">Light</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="style-controls">
+                        <label>Background Color: 
+                            <input type="color" id="bg-color" value="#000000" onchange="updateStyle('--background-color', this.value)">
+                        </label>
+                        <label>Button Color: 
+                            <input type="color" id="button-color" value="#004EA1" onchange="updateStyle('--button-color', this.value)">
+                        </label>
+                        <label>Task Bar Color: 
+                            <input type="color" id="task-bar-color" value="#004EA1" onchange="updateStyle('--task-bar-color', this.value)">
+                        </label>
+                        <label>Text Color: 
+                            <input type="color" id="text-color" value="#f0f0f0" onchange="updateStyle('--text-color', this.value)">
+                        </label>
+                        <label>Transparency (0-1): 
+                            <input type="range" id="transparency" min="0" max="1" step="0.1" value="0.7" onchange="updateStyle('--transparency', this.value)">
+                        </label>
+                        <button class="button" onclick="resetStyles()">Reset to Default</button>
+                    </div>
+                    <div class="custom-theme-controls">
+                        <label>Custom Theme Name: 
+                            <input type="text" id="custom-theme-name" placeholder="Enter theme name">
+                        </label>
+                        <button class="button" onclick="saveCustomTheme()">Save Custom Theme</button>
+                        <label>Load Custom Theme: 
+                            <select id="custom-theme-select" onchange="loadCustomTheme(this.value)">
+                                <option value="">Select a theme</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--************************************************************************-->
+<!--            END OF BLOCK 6. Settings Tab                              -->
+<!--            Block 6 - Settings Tab - index.html                       -->
+<!--************************************************************************-->
+
+
+
+<!--************************************************************************-->
+<!--            BLOCK 7. Gantt Chart Tab                                  -->
+<!--************************************************************************-->
+        <div data-id="gantt" class="tab-content">
+            <div class="action-bar">
+                <button class="button" onclick="showTab('dashboard')">Back to Dashboard</button>
+                <button class="button" onclick="printGanttSchedule(selectedProjectId)">Print Schedule</button>
+                <button class="button" onclick="toggleCalendarPopup()">Toggle Calendar</button>
+            </div>
+            <div class="gantt-note">Note: Drag the handles to reschedule. Click the 📝 icon to add/edit notes. Drag tasks to reorder or nest them.</div>
+            <div data-id="gantt-timeline" class="gantt-timeline-header"></div>
+            <table class="gantt-table">
+                <thead>
+                    <tr>
+                        <th oncontextmenu="showContextMenu(event, 'addTask', selectedProjectId)">Task</th>
+                        <th>Timeline</th>
+                    </tr>
+                </thead>
+                <tbody data-id="gantt-body"></tbody>
+            </table>
+        </div>
+<!--************************************************************************-->
+<!--            END OF BLOCK 7. Gantt Chart Tab                           -->
+<!--************************************************************************-->
+
+
+
+<!--************************************************************************-->
+<!--            BLOCK 8. Popups and Overlays                              -->
+<!--************************************************************************-->
+        <div data-id="context-menu" class="context-menu"></div>
+
+        <div data-id="task-list-popup" class="task-list-popup hidden">
+            <div class="task-list-header">
+                <h3>Task List</h3>
+                <span class="close-task-list" onclick="closeTaskList()">×</span>
+            </div>
+            <div data-id="task-list-content"></div>
+        </div>
+
+        <div data-id="calendar-popup" class="calendar-popup hidden"></div>
+
+        <button data-id="undo-button" class="button hidden" onclick="undoLastAction()">Undo</button>
+
+        <button data-id="notification-permission" class="button" onclick="requestNotificationPermission()">Enable Notifications</button>
+<!--************************************************************************-->
+<!--            END OF BLOCK 8. Popups and Overlays                       -->
+<!--************************************************************************-->
+
+
+
+<!--************************************************************************-->
+<!--            BLOCK 9. Footer and Scripts                               -->
+<!--************************************************************************-->
+        <footer data-id="footer" class="site-footer">
+            <p>SSA Maintenance Projects v1.0 © 2025</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+<!--************************************************************************-->
+<!--            END OF BLOCK 9. Footer and Scripts                        -->
+<!--************************************************************************-->
+
+</body>
+</html>

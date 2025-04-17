@@ -1,0 +1,577 @@
+
+
+/*
+ *************************************************************************
+ *            BLOCK 1. Base Styles and Body
+ *************************************************************************
+ */
+body {
+    font-family: Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: url('background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #f0f0f0;
+    padding-bottom: 60px; /* Space for footer */
+}
+
+a {
+    color: #66b3ff; /* Consistent base color */
+    text-decoration: none; /* Remove underline */
+    font-family: Verdana, sans-serif; /* Explicitly set font face */
+}
+
+a:hover {
+    color: #f0f0f0; /* Consistent hover color */
+}
+
+.button {
+    color: #66b3ff; /* Consistent base color for buttons */
+    font-family: Verdana, sans-serif; /* Explicitly set font face */
+    background: #2e3b3b; /* Retain existing background */
+    border: none; /* Retain existing border */
+    padding: 8px 15px; /* Retain existing padding */
+    cursor: pointer; /* Retain cursor */
+    border-radius: 4px; /* Retain border radius */
+}
+
+.button:hover {
+    color: #f0f0f0; /* Consistent hover color */
+    background: #003c7a; /* Retain existing hover background */
+}
+
+.hidden {
+    display: none;
+}
+/*
+ *************************************************************************
+ *            END OF BLOCK 1. Base Styles and Body
+ *************************************************************************
+ */
+ 
+ 
+
+/*
+ *************************************************************************
+ *            BLOCK 2. Header
+ *************************************************************************
+ */
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.app-title {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #f0f0f0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/*
+ *************************************************************************
+ *            BLOCK 3. Main Container and Tabs
+ *************************************************************************
+ */
+.container {
+    max-width: 100%;
+    margin: auto;
+    padding: 0;
+    position: relative;
+    min-height: calc(100vh - 60px);
+}
+
+.tabs, .project-tabs {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.tab-button {
+    padding: 8px 15px;
+    background: #2e3b3b;
+    color: #f0f0f0;
+    border: none;
+    cursor: pointer;
+    width: 100px;
+    border-radius: 4px;
+}
+
+.tab-button.active { background: #004EA1; }
+.tab-button:hover { background: #003c7a; }
+.tab-button:focus { outline: 2px solid #66b3ff; outline-offset: 2px; }
+.tab-button span { margin-left: 5px; color: #ff6666; cursor: pointer; }
+.tab-button span:hover { color: #ff3333; }
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.tab-content:not(.active) { display: none !important; }
+
+
+
+/*
+ *************************************************************************
+ *            BLOCK 4. Dashboard Tab Styles
+ *************************************************************************
+ */
+.filter-bar {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.filter-bar label { margin-right: 5px; }
+
+.project-toggle, .task-toggle {
+    cursor: pointer;
+    margin-right: 5px;
+    font-weight: bold;
+    width: 15px;
+    display: inline-block;
+    text-align: center;
+}
+
+.project-name { font-weight: bold; }
+.project-name a {
+    color: #66b3ff; /* Base color now light blue */
+    text-decoration: none; /* Remove underline */
+}
+.project-name a:hover {
+    color: #f0f0f0; /* Hover color now light gray */
+}
+
+.task-name {
+    color: #66b3ff; /* Base color now light blue */
+}
+.task-name a {
+    color: #66b3ff; /* Base color now light blue */
+    text-decoration: none; /* Remove underline */
+}
+.task-name a:hover {
+    color: #f0f0f0; /* Hover color now light gray */
+}
+
+.sub-task { font-size: 0.9em; }
+.sub-task a {
+    color: #66b3ff; /* Base color now light blue */
+    text-decoration: none; /* Remove underline */
+}
+.sub-task a:hover {
+    color: #f0f0f0; /* Hover color now light gray */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: rgba(0, 0, 0, 0.7);
+    margin: 0 auto 20px auto;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #334747;
+    white-space: nowrap;
+}
+
+th {
+    background-color: rgba(0, 78, 161, 0.5);
+}
+
+th:nth-child(1), td:nth-child(1) { width: 25%; text-align: left; }
+th:nth-child(2), td:nth-child(2) { width: 15%; text-align: center; }
+th:nth-child(3), td:nth-child(3) { width: 15%; text-align: center; }
+th:nth-child(4), td:nth-child(4) { width: 10%; text-align: center; }
+th:nth-child(5), td:nth-child(5) { width: 15%; text-align: center; }
+th:nth-child(6), td:nth-child(6) { width: 20%; text-align: left; white-space: normal; }
+/*
+ *************************************************************************
+ *            END OF BLOCK 4. Dashboard Tab Styles
+ *************************************************************************
+ */
+ 
+ 
+ 
+
+/*
+ *************************************************************************
+ *            BLOCK 5. Calendar Tab Styles
+ *************************************************************************
+ */
+#calendar.tab-content { display: none; width: 100%; position: relative; }
+#calendar.tab-content.active { display: block; }
+
+.calendar-nav {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#month-year {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #f0f0f0;
+    margin: 0 10px;
+}
+
+.toggle-view-container { text-align: center; margin-bottom: 10px; width: 100%; display: flex; justify-content: center; gap: 10px; }
+
+.calendar-view { display: block; width: 100%; max-width: 1000px; margin: 0 auto; }
+.calendar-view table { width: 100%; table-layout: fixed; border-collapse: collapse; }
+.calendar-view th, .calendar-view td { width: 14.28% !important; height: 100px !important; vertical-align: top; position: relative; box-sizing: border-box; aspect-ratio: 1/1; border: 1px solid #334747; }
+.calendar-view td:empty { background-color: rgba(0, 0, 0, 0.3); }
+.calendar-view th { background-color: rgba(0, 78, 161, 0.5); text-align: center; }
+.calendar-view td:hover .task-tooltip { display: block; }
+.calendar-view .day-number { font-size: 0.9em; position: absolute; top: 5px; left: 5px; }
+
+.task-container { margin-top: 20px; display: flex; flex-direction: column; gap: 2px; overflow-y: auto; max-height: calc(100% - 20px); }
+.calendar-task { font-size: 0.55em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.list-view { width: 100%; max-width: 1000px; margin: 0 auto; }
+.calendar-list-date { margin-bottom: 15px; }
+.calendar-list-date strong { display: block; margin-bottom: 5px; }
+.calendar-list-date ul { padding-left: 20px; margin: 0; }
+
+/*
+ *************************************************************************
+ *            BLOCK 6. Settings Tab Styles
+ *************************************************************************
+ */
+.settings-table { background-color: rgba(0, 0, 0, 0.7); }
+
+#pic-list tr { display: flex; align-items: center; gap: 10px; }
+#pic-list td { flex: 1; border: none; }
+#pic-list td:last-child { flex: 0 0 auto; }
+
+/*
+ *************************************************************************
+ *            BLOCK 7. Gantt Chart Tab Styles
+ *************************************************************************
+ */
+#gantt.tab-content { display: none; }
+#gantt.tab-content.active { display: block; }
+
+.gantt-note {
+    margin-bottom: 20px;
+    font-size: 0.9em;
+    color: #e0e0e0;
+    font-style: italic;
+}
+
+.gantt-table { width: 100%; background-color: rgba(0, 0, 0, 0.7); border-collapse: collapse; table-layout: fixed !important; }
+.gantt-table th, .gantt-table td { padding: 10px; border: 1px solid #334747; }
+.gantt-table th { background-color: rgba(0, 78, 161, 0.5); text-align: center; }
+.gantt-table th:nth-child(1), .gantt-table td:nth-child(1) { width: 30% !important; text-align: left; }
+.gantt-table th:nth-child(2), .gantt-table td:nth-child(2) { width: 70% !important; overflow: hidden; }
+
+.gantt-container {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 4px;
+}
+
+.today-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #ff0000;
+    z-index: 5;
+}
+
+.task-bar {
+    position: absolute;
+    height: 20px;
+    top: 10px;
+    background: #004EA1;
+    opacity: 0.7;
+    z-index: 10;
+    min-width: 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px;
+}
+
+.task-bar:hover { opacity: 0.9; }
+
+.date-label {
+    font-size: 0.7em;
+    color: #fff;
+    z-index: 15;
+    white-space: nowrap;
+    position: absolute;
+    top: -20px;
+    transform: translateX(-50%);
+}
+
+.date-label.start-date { left: 0; }
+.date-label.end-date { right: 0; }
+
+.resize-start, .resize-end {
+    position: absolute;
+    width: 5px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: ew-resize;
+    z-index: 20;
+}
+
+.resize-start { left: 0; }
+.resize-end { right: 0; }
+
+.notes-icon { cursor: pointer; margin-left: 5px; }
+.notes-icon.has-notes { color: #ffcc00; }
+
+.gantt-timeline-header { width: 70%; margin-bottom: 10px; margin-left: 30%; position: relative; }
+.gantt-timeline { position: relative; width: 100%; height: 30px; background-color: rgba(0, 0, 0, 0.7); border-radius: 4px; }
+.timeline-marker { position: absolute; height: 100%; border-left: 1px solid #f0f0f0; }
+.timeline-label { position: absolute; font-size: 0.8em; color: #f0f0f0; transform: translateX(-50%); }
+
+/*
+ *************************************************************************
+ *            BLOCK 8. Popups and Overlays
+ *************************************************************************
+ */
+.context-menu {
+    position: absolute;
+    background: #2e3b3b;
+    border: 1px solid #334747;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    border-radius: 4px;
+    opacity: 0.8;
+}
+
+.context-menu.hidden { display: none; }
+
+.context-menu .menu-item { padding: 8px 12px; color: #f0f0f0; cursor: pointer; }
+.context-menu .menu-item:hover { background: #004EA1; }
+
+.notes-popup {
+    position: fixed;
+    background: #2e3b3b;
+    border: 1px solid #334747;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 2000;
+    padding: 10px;
+    width: 300px;
+    max-width: 90vw;
+    opacity: 0.8;
+}
+
+.notes-popup h4 { margin: 0 0 10px 0; color: #f0f0f0; }
+.notes-popup textarea { width: 100%; box-sizing: border-box; margin-bottom: 10px; }
+.notes-popup button { padding: 5px 10px; background: #004EA1; color: white; border: none; cursor: pointer; border-radius: 4px; margin-right: 5px; }
+.notes-popup button:hover { background: #003c7a; }
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #2e3b3b;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    width: 400px;
+    max-width: 90vw;
+}
+
+.modal-content h3 { margin: 0 0 15px 0; color: #f0f0f0; }
+.modal-body label { display: block; margin-bottom: 10px; }
+.modal-body input[type="date"] { width: 100%; box-sizing: border-box; }
+.modal-body textarea { width: 100%; box-sizing: border-box; }
+.modal-buttons { margin-top: 15px; display: flex; justify-content: flex-end; gap: 10px; }
+.modal-buttons button { padding: 5px 10px; background: #004EA1; color: white; border: none; cursor: pointer; border-radius: 4px; }
+.modal-buttons button:hover { background: #003c7a; }
+
+.task-list-popup {
+    position: fixed;
+    top: 50px;
+    right: 20px;
+    background: #2e3b3b;
+    border: 1px solid #334747;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    padding: 10px;
+    width: 300px;
+    max-width: 90vw;
+    max-height: 80vh;
+    overflow-y: auto;
+    opacity: 0.8;
+}
+
+.task-list-popup.hidden { display: none; }
+
+.task-list-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.task-list-header h3 { margin: 0; color: #f0f0f0; }
+.close-task-list { color: #ff6666; cursor: pointer; font-size: 1.2em; }
+.close-task-list:hover { color: #ff3333; }
+
+#task-list-content ul { padding-left: 0; }
+#task-list-content li { margin-bottom: 5px; }
+
+#undo-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background: #ff6666;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    z-index: 1000;
+}
+
+#undo-button.hidden { display: none; }
+#undo-button:hover { background: #ff3333; }
+
+#notification-permission {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    background: #004EA1;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    z-index: 1000;
+}
+
+#notification-permission.hidden { display: none; }
+#notification-permission:hover { background: #003c7a; }
+
+.calendar-popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    transform: none;
+    background: #2e3b3b;
+    border: 1px solid #334747;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 2000;
+    padding: 15px;
+    width: 300px;
+    max-width: 90vw;
+    opacity: 0.8;
+}
+
+.calendar-popup.hidden { display: none; }
+.calendar-popup table { width: 100%; border-collapse: collapse; table-layout: fixed; box-sizing: border-box; }
+.calendar-popup th, .calendar-popup td { text-align: center; padding: 4px; border: 1px solid #334747; box-sizing: border-box; font-size: 0.9em; width: 14.28%; }
+.calendar-popup th { background-color: rgba(0, 78, 161, 0.5); }
+.calendar-popup td { background-color: rgba(0, 0, 0, 0.3); cursor: pointer; }
+.calendar-popup td:hover { background-color: rgba(0, 78, 161, 0.5); }
+
+.calendar-popup .calendar-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; cursor: move; }
+.calendar-popup .calendar-nav button { padding: 5px 10px; background: #004EA1; color: white; border: none; cursor: pointer; border-radius: 4px; }
+.calendar-popup .calendar-nav button:hover { background: #003c7a; }
+.calendar-popup .calendar-nav .month-year-wrapper { flex: 1; text-align: center; }
+.calendar-popup #popup-month-year { font-size: 1.2em; font-weight: bold; color: #f0f0f0; }
+/*
+ *************************************************************************
+ *            END OF BLOCK 8. Popups and Overlays
+ *************************************************************************
+ */
+
+/*
+ *************************************************************************
+ *            BLOCK 9. Footer and Miscellaneous
+ *************************************************************************
+ */
+.site-footer {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    color: #f0f0f0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1100;
+}
+
+.overdue { background-color: rgba(255, 0, 0, 0.3); }
+.overdue-row { background-color: rgba(255, 0, 0, 0.5) !important; font-weight: bold; }
+.upcoming { background-color: rgba(255, 255, 0, 0.3); }
+
+.draggable:hover { background-color: rgba(255, 255, 255, 0.1); cursor: move; }
+.drop-above { border-top: 2px dashed #00ff00; }
+.drop-onto { background-color: rgba(0, 0, 255, 0.2); }
+.drop-below { border-bottom: 2px dashed #00ff00; }
+
+/*
+ *************************************************************************
+ *            BLOCK 10. Print Styles
+ *************************************************************************
+ */
+@media print {
+    body { background: none; color: #000; margin: 0; padding: 0; }
+    .container, .tabs, .project-tabs, .action-bar, .filter-bar, .gantt-note, .gantt-timeline-header, .gantt-table, #undo-button, #notification-permission, .site-footer { display: none; }
+    .print-schedule { display: block !important; width: 100%; padding: 10px; font-family: Arial, sans-serif; }
+    .print-schedule h1 { font-size: 12pt; text-align: center; margin-bottom: 10px; color: #000; }
+    .print-schedule table {
+        width: 468pt;
+        max-width: 468pt;
+        border-collapse: collapse;
+        margin-bottom: 10px;
+        background: #fff;
+        page-break-before: auto;
+        table-layout: fixed;
+        box-sizing: border-box;
+    }
+    .print-schedule th, .print-schedule td {
+        border: 1px solid #000;
+        padding: 0.5px;
+        text-align: left;
+        font-size: 8pt;
+        overflow-wrap: break-word;
+        white-space: normal;
+    }
+    .print-schedule th { background-color: #e0e0e0; font-weight: bold; }
+    .print-schedule th:nth-child(1), .print-schedule td:nth-child(1) { width: 240pt; text-align: left; }
+    .print-schedule th:nth-child(2), .print-schedule td:nth-child(2) { width: 100pt; text-align: center; }
+    .print-schedule th:nth-child(3), .print-schedule td:nth-child(3) { width: 100pt; text-align: center; }
+    .print-schedule th:nth-child(4), .print-schedule td:nth-child(4) { width: 50pt; text-align: center; }
+    .print-schedule th:nth-child(5), .print-schedule td:nth-child(5) { width: 50pt; text-align: center; }
+    .print-schedule tr { page-break-inside: avoid; }
+    .print-schedule .sub-task { padding-left: 10px; }
+    .print-schedule .notes { font-style: italic; color: #555; padding-left: 10px; }
+    .print-schedule .status-past-due { color: red; }
+    .print-schedule .status-on-track { color: green; }
+    @page { size: letter; margin: 0.5in; }
+}
+
+/*
+ *************************************************************************
+ *            END OF STYLES.CSS
+ *************************************************************************
+ */

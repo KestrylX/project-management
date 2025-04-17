@@ -1,0 +1,16 @@
+ProjectID,ProjectName,TaskName,DueDate,,SubTaskLevel,ParentTaskID,PIC,Completion,Notes,StartDate,Dependencies
+4,Dual Pump for Pit Project,Define Scope/Objective,2025-03-21,,0,,,100,,2025-03-11,
+4,Dual Pump for Pit Project,Create system diagram,2025-04-25,,0,,,50,,2025-03-17,
+4,Dual Pump for Pit Project,Develop BOM,2025-04-11,,0,,,75,,2025-03-15,
+4,Dual Pump for Pit Project,Procure BOM components,2025-04-25,,0,,,0,,2025-04-11,
+4,Dual Pump for Pit Project,Programming,2025-05-03,,0,,,0,,2025-04-20,
+4,Dual Pump for Pit Project,Bench-top Setup,2025-05-26,,0,,,0,,2025-04-20,
+4,Dual Pump for Pit Project,Documentation,2025-06-12,,0,,,0,,2025-04-23,
+4,Dual Pump for Pit Project,Training,2025-07-08,,0,,,0,,2025-05-24,
+4,Dual Pump for Pit Project,Maintenance,2025-06-07,,1,7,,0,,2025-06-07,parent
+4,Dual Pump for Pit Project,Operators,2025-07-09,,1,7,,0,,2025-07-08,parent
+4,Dual Pump for Pit Project,Install,2025-06-29,,0,,,0,,2025-06-15,
+4,Dual Pump for Pit Project,Change of Management,2025-07-21,,0,,,0,,2025-06-14,
+4,Dual Pump for Pit Project,Final Safety Review,2025-07-08,,0,,,0,,2025-07-07,
+2,Overhaul 2025,,,,0,,Mitch,0,,,,
+PICList,Mitch,Terry,Yoda,Jerry

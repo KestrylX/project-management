@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSA Maintenance Projects</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1 class="app-title">SSA Maintenance Projects</h1>
+    </header>
+    <div class="container">
+        <div class="tabs" role="tablist"></div>
+        <div class="project-tabs" role="tablist"></div>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <div class="filter-bar">
+                <label for="filter-pic">Filter by PIC:</label>
+                <select id="filter-pic" onchange="filterProjects()">
+                    <option value="">All</option>
+                </select>
+                <label for="filter-overdue">Filter by Overdue:</label>
+                <select id="filter-overdue" onchange="filterProjects()">
+                    <option value="">All</option>
+                    <option value="overdue">Overdue</option>
+                    <option value="not-overdue">Not Overdue</option>
+                </select>
+                <label for="filter-completion">Filter by Completion:</label>
+                <select id="filter-completion" onchange="filterProjects()">
+                    <option value="">All</option>
+                    <option value="completed">Completed</option>
+                    <option value="incomplete">Incomplete</option>
+                </select>
+            </div>
+            <div class="action-bar">
+                <button class="button" onclick="addProject()">Add Project</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Project</th>
+                        <th>Start Date</th>
+                        <th>Deadline</th>
+                        <th>Completion</th>
+                        <th>Person-in-Charge</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody id="project-list"></tbody>
+            </table>
+        </div>
+
+        <!-- Calendar Tab -->
+        <div id="calendar" class="tab-content">
+            <div class="calendar-nav">
+                <button class="button" onclick="prevMonth()">Previous</button>
+                <span id="month-year"></span>
+                <button class="button" onclick="nextMonth()">Next</button>
+            </div>
+            <div class="toggle-view-container">
+                <button id="toggle-view-btn" class="button active" onclick="toggleCalendarView()">Full View</button>
+                <button id="toggle-task-list" class="button" onclick="toggleTaskList()">Task List</button>
+            </div>
+            <div id="calendar-full" class="calendar-view">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sun</th>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                            <th>Sat</th>
+                        </tr>
+                    </thead>
+                    <tbody id="calendar-body"></tbody>
+                </table>
+            </div>
+            <div id="calendar-list" class="list-view" style="display: none;"></div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div id="settings" class="tab-content">
+            <div class="action-bar">
+                <button class="button" onclick="addPIC()">Add PIC</button>
+                <input type="file" id="import-file" accept=".csv" onchange="importData(event)" style="display: none;">
+                <button class="button" onclick="document.getElementById('import-file').click()">Import CSV</button>
+                <button class="button" onclick="exportData()">Export CSV</button>
+            </div>
+            <table class="settings-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="pic-list"></tbody>
+            </table>
+        </div>
+
+        <!-- Context Menu -->
+        <div id="context-menu" class="context-menu"></div>
+
+        <!-- Task List Popup -->
+        <div id="task-list-popup" class="task-list-popup" style="display: none;">
+            <div class="task-list-header">
+                <h3>Task List</h3>
+                <span class="close-task-list" onclick="closeTaskList()">×</span>
+            </div>
+            <div id="task-list-content"></div>
+        </div>
+
+        <!-- Undo Button -->
+        <button id="undo-button" class="button" onclick="undoLastAction()" style="display: none;">Undo</button>
+
+        <!-- Notification Permission Button -->
+        <button id="notification-permission" onclick="requestNotificationPermission()">Enable Notifications</button>
+
+        <!-- Footer moved inside container -->
+        <footer class="site-footer">
+            <p>SSA Maintenance Projects v1.0 © 2025</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <!-- Move CDN scripts above footer -->
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9260cf9a9904bf78',t:'MTc0MjkzMDkwMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9266e9d3f947bfa2',t:'MTc0Mjk5NDg5MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'92687c571f63677b',t:'MTc0MzAxMTM3Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
+</html>

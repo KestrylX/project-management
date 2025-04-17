@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSA Maintenance Projects</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1 class="app-title">SSA Maintenance Projects</h1>
+    </header>
+    <div class="container">
+        <div class="tabs" role="tablist"></div>
+        <div class="project-tabs" role="tablist"></div>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <div class="filter-bar">
+                <label for="filter-pic">Filter by PIC:</label>
+                <select id="filter-pic" onchange="filterProjects()">
+                    <option value="">All</option>
+                </select>
+                <label for="filter-overdue">Filter by Overdue:</label>
+                <select id="filter-overdue" onchange="filterProjects()">
+                    <option value="">All</option>
+                    <option value="overdue">Overdue</option>
+                    <option value="not-overdue">Not Overdue</option>
+                </select>
+                <label for="filter-completion">Filter by Completion:</label>
+                <select id="filter-completion" onchange="filterProjects()">
+                    <option value="">All</option>
+                    <option value="completed">Completed</option>
+                    <option value="incomplete">Incomplete</option>
+                </select>
+            </div>
+            <div class="action-bar">
+                <button class="button" onclick="addProject()">Add Project</button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Project</th>
+                        <th>Start Date</th>
+                        <th>Deadline</th>
+                        <th>Completion</th>
+                        <th>Person-in-Charge</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody id="project-list"></tbody>
+            </table>
+        </div>
+
+        <!-- Calendar Tab -->
+        <div id="calendar" class="tab-content">
+            <div class="calendar-nav">
+                <button class="button" onclick="prevMonth()">Previous</button>
+                <span id="month-year"></span>
+                <button class="button" onclick="nextMonth()">Next</button>
+            </div>
+            <div class="toggle-view-container">
+                <button id="toggle-view-btn" class="button active" onclick="toggleCalendarView()">Full View</button>
+                <button id="toggle-task-list" class="button" onclick="toggleTaskList()">Task List</button>
+            </div>
+            <div id="calendar-full" class="calendar-view">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sun</th>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                            <th>Sat</th>
+                        </tr>
+                    </thead>
+                    <tbody id="calendar-body"></tbody>
+                </table>
+            </div>
+            <div id="calendar-list" class="list-view" style="display: none;"></div>
+        </div>
+
+        <!-- Settings Tab -->
+        <div id="settings" class="tab-content">
+            <div class="action-bar">
+                <button class="button" onclick="addPIC()">Add PIC</button>
+                <input type="file" id="import-file" accept=".csv" onchange="importData(event)" style="display: none;">
+                <button class="button" onclick="document.getElementById('import-file').click()">Import CSV</button>
+                <button class="button" onclick="exportData()">Export CSV</button>
+            </div>
+            <table class="settings-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="pic-list"></tbody>
+            </table>
+        </div>
+
+        <!-- Gantt Chart Tab -->
+        <div id="gantt" class="tab-content">
+            <div class="action-bar">
+                <button class="button" onclick="showTab('dashboard')">Back to Dashboard</button>
+                <button class="button" onclick="printGanttSchedule(selectedProjectId)">Print Schedule</button>
+                <button class="button" onclick="toggleCalendarPopup()">Toggle Calendar</button>
+            </div>
+            <div class="gantt-note">Note: Drag the handles to reschedule. Click the 📝 icon to add/edit notes. Drag tasks to reorder or nest them.</div>
+            <div class="gantt-timeline-header" id="gantt-timeline"></div>
+            <table class="gantt-table">
+                <thead>
+                    <tr>
+                        <th oncontextmenu="showContextMenu(event, 'addTask', selectedProjectId)">Task</th>
+                        <th>Timeline</th>
+                    </tr>
+                </thead>
+                <tbody id="gantt-body"></tbody>
+            </table>
+        </div>
+
+        <!-- Context Menu -->
+        <div id="context-menu" class="context-menu"></div>
+
+        <!-- Task List Popup -->
+        <div id="task-list-popup" class="task-list-popup" style="display: none;">
+            <div class="task-list-header">
+                <h3>Task List</h3>
+                <span class="close-task-list" onclick="closeTaskList()">×</span>
+            </div>
+            <div id="task-list-content"></div>
+        </div>
+
+        <!-- Calendar Popup -->
+        <div id="calendar-popup" class="calendar-popup" style="display: none;"></div>
+
+        <!-- Undo Button -->
+        <button id="undo-button" class="button" onclick="undoLastAction()" style="display: none;">Undo</button>
+
+        <!-- Notification Permission Button -->
+        <button id="notification-permission" onclick="requestNotificationPermission()">Enable Notifications</button>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <p>SSA Maintenance Projects v1.0 © 2025</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
