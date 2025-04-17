@@ -3175,8 +3175,7 @@ function checkNotifications() {
             dueDate.setHours(0, 0, 0, 0);
             if (task.completion < 100 && (dueDate.getTime() === today.getTime() || dueDate.getTime() === tomorrow.getTime())) {
                 new Notification(`Task Due: ${task.name}`, {
-                    body: `Project: ${project.name}\nDue: ${task.due}`,
-                    icon: 'https://via.placeholder.com/16' // Optional: Replace with a real icon URL if available
+                    body: `Project: ${project.name}\nDue: ${task.due}`
                 });
             }
             task.subTasks.forEach(subTask => {
@@ -3184,8 +3183,7 @@ function checkNotifications() {
                 subDueDate.setHours(0, 0, 0, 0);
                 if (subTask.completion < 100 && (subDueDate.getTime() === today.getTime() || subDueDate.getTime() === tomorrow.getTime())) {
                     new Notification(`Sub-Task Due: ${subTask.name}`, {
-                        body: `Project: ${project.name}\nParent Task: ${task.name}\nDue: ${subTask.due}`,
-                        icon: 'https://via.placeholder.com/16' // Optional: Replace with a real icon URL if available
+                        body: `Project: ${project.name}\nParent Task: ${task.name}\nDue: ${subTask.due}`
                     });
                 }
             });
